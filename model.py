@@ -50,7 +50,7 @@ class Account:
                     'account_data': [{
                         'settings': [{
                             'host': "http://127.0.0.1:14700",
-                            'min_weight_magnitude': 15,
+                            'min_weight_magnitude': 13,
                             'units': "i"
                         }],
                         'address_data': [],
@@ -379,8 +379,8 @@ class Account:
                 print("No addresses with balance!")
                 print("\n" + "Deposit address: " + str(self.get_deposit_address()))
 
-    def on_new_transaction_received(self, transaction):
-        self._logger.debug('on_new_transaction_received, tag: {0}, is_confirmed: {1}'.format(transaction.tag, transaction.is_confirmed))
+    def on_new_transaction_received(self, transaction, confirmed):
+        self._logger.debug('on_new_transaction_received, tag: {0}, is_confirmed: {1}'.format(transaction.tag, confirmed))
         pass
 
     def get_transfers(self, full_history, print_history=False):
@@ -448,7 +448,7 @@ class Account:
                     bundle
                 )
 
-                self.on_new_transaction_received(txn)
+                self.on_new_transaction_received(txn, is_confirmed)
 
         if print_history:
             if full_history:
